@@ -1,0 +1,59 @@
+{
+  "name": "@promptjuggler/sdk",
+  "version": "0.0.0",
+  "description": "TypeScript SDK for the PromptJuggler API — run prompts and workflows, manage knowledge bases, and verify webhooks.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motleyhand/promptjuggler-typescript-sdk.git"
+  },
+  "homepage": "https://docs.promptjuggler.com/sdks/typescript/overview",
+  "keywords": [
+    "promptjuggler",
+    "llm",
+    "prompts",
+    "ai",
+    "sdk"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "prettier": "prettier --check .",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.20.0",
+    "eslint": "^10.5.0",
+    "prettier": "^3.8.4",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.62.0",
+    "vitest": "^4.1.9"
+  }
+}
