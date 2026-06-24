@@ -1,6 +1,6 @@
 {
   "name": "@promptjuggler/sdk",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "description": "TypeScript SDK for the PromptJuggler API — run prompts and workflows, manage knowledge bases, and verify webhooks.",
   "license": "MIT",
   "type": "module",
