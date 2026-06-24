@@ -11,7 +11,10 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    // tsup's dts builder injects a `baseUrl`, which TS 6 flags as deprecated-and-erroring.
+    // We don't set `baseUrl` ourselves; this is the documented TS 6→7 migration shim.
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src", "lib", "tests"]
 }

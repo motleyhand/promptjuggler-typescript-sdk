@@ -10,7 +10,7 @@ and any modern runtime with `fetch`.
 
 ## Requirements
 
-- Node.js 20+
+- Node.js 22+
 
 ## Installation
 
