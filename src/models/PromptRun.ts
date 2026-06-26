@@ -20,6 +20,20 @@ import {
     RunStatusToJSON,
     RunStatusToJSONTyped,
 } from './RunStatus';
+import type { TokenUsage } from './TokenUsage';
+import {
+    TokenUsageFromJSON,
+    TokenUsageFromJSONTyped,
+    TokenUsageToJSON,
+    TokenUsageToJSONTyped,
+} from './TokenUsage';
+import type { RunCost } from './RunCost';
+import {
+    RunCostFromJSON,
+    RunCostFromJSONTyped,
+    RunCostToJSON,
+    RunCostToJSONTyped,
+} from './RunCost';
 
 /**
  * Prompt run status and result.
@@ -63,6 +77,18 @@ export interface PromptRun {
      * @memberof PromptRun
      */
     error?: string | null;
+    /**
+     * Token usage for the successful run. Null while pending or when the run failed.
+     * @type {TokenUsage}
+     * @memberof PromptRun
+     */
+    tokenUsage?: TokenUsage | null;
+    /**
+     * Cost breakdown for the run. Null while pending.
+     * @type {RunCost}
+     * @memberof PromptRun
+     */
+    cost?: RunCost | null;
 }
 
 
@@ -93,6 +119,8 @@ export function PromptRunFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'finishedAt': json['finishedAt'] == null ? undefined : (new Date(json['finishedAt'])),
         'output': json['output'] == null ? undefined : json['output'],
         'error': json['error'] == null ? undefined : json['error'],
+        'tokenUsage': json['tokenUsage'] == null ? undefined : TokenUsageFromJSON(json['tokenUsage']),
+        'cost': json['cost'] == null ? undefined : RunCostFromJSON(json['cost']),
     };
 }
 
@@ -113,6 +141,8 @@ export function PromptRunToJSONTyped(value?: PromptRun | null, ignoreDiscriminat
         'finishedAt': value['finishedAt'] == null ? value['finishedAt'] : value['finishedAt'].toISOString(),
         'output': value['output'],
         'error': value['error'],
+        'tokenUsage': TokenUsageToJSON(value['tokenUsage']),
+        'cost': RunCostToJSON(value['cost']),
     };
 }
 

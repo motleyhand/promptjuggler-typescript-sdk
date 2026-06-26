@@ -163,7 +163,7 @@ export class WorkflowRunsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the current state of a workflow run, including status, outputs, and errors. Poll this endpoint after receiving a webhook notification, or use it to check the status of a run in progress.
+     * Retrieves the current state of a workflow run, including status, outputs, aggregated token usage, cost, and errors. Poll this endpoint after receiving a webhook notification, or use it to check the status of a run in progress.
      * Get a workflow run by ID
      */
     async getWorkflowRunRaw(requestParameters: GetWorkflowRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkflowRun>> {
@@ -174,7 +174,7 @@ export class WorkflowRunsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the current state of a workflow run, including status, outputs, and errors. Poll this endpoint after receiving a webhook notification, or use it to check the status of a run in progress.
+     * Retrieves the current state of a workflow run, including status, outputs, aggregated token usage, cost, and errors. Poll this endpoint after receiving a webhook notification, or use it to check the status of a run in progress.
      * Get a workflow run by ID
      */
     async getWorkflowRun(requestParameters: GetWorkflowRunRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkflowRun> {

@@ -20,6 +20,20 @@ import {
     RunStatusToJSON,
     RunStatusToJSONTyped,
 } from './RunStatus';
+import type { TokenUsage } from './TokenUsage';
+import {
+    TokenUsageFromJSON,
+    TokenUsageFromJSONTyped,
+    TokenUsageToJSON,
+    TokenUsageToJSONTyped,
+} from './TokenUsage';
+import type { RunCost } from './RunCost';
+import {
+    RunCostFromJSON,
+    RunCostFromJSONTyped,
+    RunCostToJSON,
+    RunCostToJSONTyped,
+} from './RunCost';
 
 /**
  * Workflow run status and results.
@@ -63,6 +77,18 @@ export interface WorkflowRun {
      * @memberof WorkflowRun
      */
     errors: Array<string>;
+    /**
+     * Aggregated token usage across the workflow run. Null while pending.
+     * @type {TokenUsage}
+     * @memberof WorkflowRun
+     */
+    tokenUsage?: TokenUsage | null;
+    /**
+     * Aggregated cost breakdown across the workflow run. Null while pending.
+     * @type {RunCost}
+     * @memberof WorkflowRun
+     */
+    cost?: RunCost | null;
 }
 
 
@@ -95,6 +121,8 @@ export function WorkflowRunFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'finishedAt': json['finishedAt'] == null ? undefined : (new Date(json['finishedAt'])),
         'outputs': json['outputs'],
         'errors': json['errors'],
+        'tokenUsage': json['tokenUsage'] == null ? undefined : TokenUsageFromJSON(json['tokenUsage']),
+        'cost': json['cost'] == null ? undefined : RunCostFromJSON(json['cost']),
     };
 }
 
@@ -115,6 +143,8 @@ export function WorkflowRunToJSONTyped(value?: WorkflowRun | null, ignoreDiscrim
         'finishedAt': value['finishedAt'] == null ? value['finishedAt'] : value['finishedAt'].toISOString(),
         'outputs': value['outputs'],
         'errors': value['errors'],
+        'tokenUsage': TokenUsageToJSON(value['tokenUsage']),
+        'cost': RunCostToJSON(value['cost']),
     };
 }
 
