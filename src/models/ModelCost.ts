@@ -30,7 +30,7 @@ export interface ModelCost {
      * @type {number}
      * @memberof ModelCost
      */
-    cachedInput?: number | null;
+    cachedInput: number;
     /**
      * 
      * @type {number}
@@ -42,7 +42,7 @@ export interface ModelCost {
      * @type {number}
      * @memberof ModelCost
      */
-    webSearch?: number;
+    webSearch: number;
     /**
      * 
      * @type {number}
@@ -56,7 +56,9 @@ export interface ModelCost {
  */
 export function instanceOfModelCost(value: object): value is ModelCost {
     if (!('input' in value) || value['input'] === undefined) return false;
+    if (!('cachedInput' in value) || value['cachedInput'] === undefined) return false;
     if (!('output' in value) || value['output'] === undefined) return false;
+    if (!('webSearch' in value) || value['webSearch'] === undefined) return false;
     if (!('total' in value) || value['total'] === undefined) return false;
     return true;
 }
@@ -72,9 +74,9 @@ export function ModelCostFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     return {
         
         'input': json['input'],
-        'cachedInput': json['cachedInput'] == null ? undefined : json['cachedInput'],
+        'cachedInput': json['cachedInput'],
         'output': json['output'],
-        'webSearch': json['webSearch'] == null ? undefined : json['webSearch'],
+        'webSearch': json['webSearch'],
         'total': json['total'],
     };
 }
