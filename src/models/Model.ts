@@ -38,10 +38,12 @@ export const Model = {
     Gemini25Pro: 'gemini-2.5-pro',
     Gemini25Flash: 'gemini-2.5-flash',
     Gemini25FlashLite: 'gemini-2.5-flash-lite',
+    ClaudeFable5: 'claude-fable-5',
     ClaudeOpus48: 'claude-opus-4-8',
     ClaudeOpus47: 'claude-opus-4-7',
     ClaudeOpus46: 'claude-opus-4-6',
     ClaudeOpus45: 'claude-opus-4-5',
+    ClaudeSonnet5: 'claude-sonnet-5',
     ClaudeSonnet46: 'claude-sonnet-4-6',
     ClaudeSonnet45: 'claude-sonnet-4-5',
     ClaudeHaiku45: 'claude-haiku-4-5'
