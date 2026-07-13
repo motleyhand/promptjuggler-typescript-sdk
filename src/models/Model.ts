@@ -18,6 +18,9 @@
  * @export
  */
 export const Model = {
+    Gpt56Sol: 'gpt-5.6-sol',
+    Gpt56Terra: 'gpt-5.6-terra',
+    Gpt56Luna: 'gpt-5.6-luna',
     Gpt55: 'gpt-5.5',
     Gpt55Pro: 'gpt-5.5-pro',
     Gpt54: 'gpt-5.4',
