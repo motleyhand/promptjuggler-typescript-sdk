@@ -36,6 +36,7 @@ export * from './RunCost';
 export * from './RunStatus';
 export * from './ScriptCall';
 export * from './ServiceTier';
+export * from './StreamTokenResponse';
 export * from './TextFormat';
 export * from './TokenUsage';
 export * from './Tool';

@@ -3,4 +3,5 @@
 export * from './KnowledgeBasesApi';
 export * from './PromptRunsApi';
 export * from './PromptsApi';
+export * from './StreamingApi';
 export * from './WorkflowRunsApi';
