@@ -5,6 +5,7 @@ import {
   PromptRunsApi,
   PromptsApi,
   ResponseError,
+  StreamingApi,
   WorkflowRunsApi,
 } from '../src';
 import type {
@@ -18,6 +19,7 @@ import type {
   KnowledgeDocumentResponse,
   PromptRevision,
   PromptRun,
+  StreamTokenResponse,
   WorkflowRun,
 } from '../src';
 import { ApiError, ConnectionError } from './errors';
@@ -58,6 +60,7 @@ export class PromptJuggler {
   private readonly promptRuns: PromptRunsApi;
   private readonly workflowRuns: WorkflowRunsApi;
   private readonly knowledgeBases: KnowledgeBasesApi;
+  private readonly streaming: StreamingApi;
 
   constructor(apiKey: string, options: PromptJugglerOptions = {}) {
     const config = new Configuration({
@@ -69,6 +72,7 @@ export class PromptJuggler {
     this.promptRuns = new PromptRunsApi(config);
     this.workflowRuns = new WorkflowRunsApi(config);
     this.knowledgeBases = new KnowledgeBasesApi(config);
+    this.streaming = new StreamingApi(config);
   }
 
   /** Fetch a prompt revision by slug and version (a numeric revision or a tag like `production`). */
@@ -121,6 +125,17 @@ export class PromptJuggler {
   /** Fetch a workflow run by ID. */
   getWorkflowRun(id: string): Promise<WorkflowRun> {
     return this.send(() => this.workflowRuns.getWorkflowRun({ id }));
+  }
+
+  /**
+   * Mint a short-lived, thread-scoped credential for the streaming endpoint. Call this from your
+   * server and hand the result to the browser — the API key must never reach it. The response
+   * carries the fully-resolved SSE `url` alongside the token, so clients need no host config.
+   *
+   * Connect before triggering a run: tokens emitted while nobody is subscribed are not replayed.
+   */
+  createStreamToken(thread: string): Promise<StreamTokenResponse> {
+    return this.send(() => this.streaming.createStreamToken({ thread }));
   }
 
   /** Fetch a knowledge base by slug. */
