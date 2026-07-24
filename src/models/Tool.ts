@@ -12,6 +12,13 @@
  * Do not edit the class manually.
  */
 
+import type { Emit } from './Emit';
+import {
+    instanceOfEmit,
+    EmitFromJSON,
+    EmitFromJSONTyped,
+    EmitToJSON,
+} from './Emit';
 import type { HttpCall } from './HttpCall';
 import {
     instanceOfHttpCall,
@@ -67,7 +74,7 @@ import {
  * 
  * @export
  */
-export type Tool = { type: 'http' } & HttpCall | { type: 'knowledge_search' } & KnowledgeSearch | { type: 'mcp' } & Mcp | { type: 'prompt' } & PromptCall | { type: 'script' } & ScriptCall | { type: 'web_search' } & WebSearch | { type: 'workflow' } & WorkflowCall;
+export type Tool = { type: 'emit' } & Emit | { type: 'http' } & HttpCall | { type: 'knowledge_search' } & KnowledgeSearch | { type: 'mcp' } & Mcp | { type: 'prompt' } & PromptCall | { type: 'script' } & ScriptCall | { type: 'web_search' } & WebSearch | { type: 'workflow' } & WorkflowCall;
 
 export function ToolFromJSON(json: any): Tool {
     return ToolFromJSONTyped(json, false);
@@ -78,6 +85,8 @@ export function ToolFromJSONTyped(json: any, ignoreDiscriminator: boolean): Tool
         return json;
     }
     switch (json['type']) {
+        case 'emit':
+            return Object.assign({}, EmitFromJSONTyped(json, true), { type: 'emit' } as const);
         case 'http':
             return Object.assign({}, HttpCallFromJSONTyped(json, true), { type: 'http' } as const);
         case 'knowledge_search':
@@ -106,6 +115,8 @@ export function ToolToJSONTyped(value?: Tool | null, ignoreDiscriminator: boolea
         return value;
     }
     switch (value['type']) {
+        case 'emit':
+            return Object.assign({}, EmitToJSON(value), { 'type': 'emit' } as const);
         case 'http':
             return Object.assign({}, HttpCallToJSON(value), { 'type': 'http' } as const);
         case 'knowledge_search':

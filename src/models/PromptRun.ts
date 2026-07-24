@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { EmittedItem } from './EmittedItem';
+import {
+    EmittedItemFromJSON,
+    EmittedItemFromJSONTyped,
+    EmittedItemToJSON,
+    EmittedItemToJSONTyped,
+} from './EmittedItem';
 import type { RunStatus } from './RunStatus';
 import {
     RunStatusFromJSON,
@@ -72,6 +79,12 @@ export interface PromptRun {
      */
     output?: string | null;
     /**
+     * Payloads produced by emit tools during this run, in call order. Empty until the run completes.
+     * @type {Array<EmittedItem>}
+     * @memberof PromptRun
+     */
+    emitted: Array<EmittedItem>;
+    /**
      * Error message if the run failed. Null on success.
      * @type {string}
      * @memberof PromptRun
@@ -100,6 +113,7 @@ export function instanceOfPromptRun(value: object): value is PromptRun {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
+    if (!('emitted' in value) || value['emitted'] === undefined) return false;
     return true;
 }
 
@@ -118,6 +132,7 @@ export function PromptRunFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'createdAt': (new Date(json['createdAt'])),
         'finishedAt': json['finishedAt'] == null ? undefined : (new Date(json['finishedAt'])),
         'output': json['output'] == null ? undefined : json['output'],
+        'emitted': ((json['emitted'] as Array<any>).map(EmittedItemFromJSON)),
         'error': json['error'] == null ? undefined : json['error'],
         'tokenUsage': json['tokenUsage'] == null ? undefined : TokenUsageFromJSON(json['tokenUsage']),
         'cost': json['cost'] == null ? undefined : RunCostFromJSON(json['cost']),
@@ -140,6 +155,7 @@ export function PromptRunToJSONTyped(value?: PromptRun | null, ignoreDiscriminat
         'createdAt': value['createdAt'].toISOString(),
         'finishedAt': value['finishedAt'] == null ? value['finishedAt'] : value['finishedAt'].toISOString(),
         'output': value['output'],
+        'emitted': ((value['emitted'] as Array<any>).map(EmittedItemToJSON)),
         'error': value['error'],
         'tokenUsage': TokenUsageToJSON(value['tokenUsage']),
         'cost': RunCostToJSON(value['cost']),

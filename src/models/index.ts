@@ -6,6 +6,8 @@ export * from './CreatePromptRunResponse';
 export * from './CreateWorkflowRun';
 export * from './CreateWorkflowRunMetadataValue';
 export * from './CreateWorkflowRunResponse';
+export * from './Emit';
+export * from './EmittedItem';
 export * from './ErrorResponse';
 export * from './GetPromptRevisionVersionParameter';
 export * from './HttpCall';

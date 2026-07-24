@@ -55,7 +55,7 @@ describe('runPrompt', () => {
 
 describe('getPromptRun', () => {
   test('GETs the run by ID', async () => {
-    const { pj, calls } = mock(() => jsonResponse({ id: 'run1', status: 'completed' }));
+    const { pj, calls } = mock(() => jsonResponse({ id: 'run1', status: 'completed', emitted: [] }));
 
     await pj.getPromptRun('run1');
 
