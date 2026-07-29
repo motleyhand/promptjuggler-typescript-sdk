@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './Citation';
 export * from './ContentMessageResponse';
 export * from './CreatePromptRun';
 export * from './CreatePromptRunResponse';
@@ -42,6 +43,11 @@ export * from './StreamTokenResponse';
 export * from './TextFormat';
 export * from './TokenUsage';
 export * from './Tool';
+export * from './ToolStatus';
+export * from './TranscriptData';
+export * from './TranscriptItem';
+export * from './TranscriptText';
+export * from './TranscriptTool';
 export * from './VersionRef';
 export * from './VersionRefIdOrTag';
 export * from './WebSearch';

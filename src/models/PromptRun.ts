@@ -34,6 +34,13 @@ import {
     TokenUsageToJSON,
     TokenUsageToJSONTyped,
 } from './TokenUsage';
+import type { TranscriptItem } from './TranscriptItem';
+import {
+    TranscriptItemFromJSON,
+    TranscriptItemFromJSONTyped,
+    TranscriptItemToJSON,
+    TranscriptItemToJSONTyped,
+} from './TranscriptItem';
 import type { RunCost } from './RunCost';
 import {
     RunCostFromJSON,
@@ -85,6 +92,12 @@ export interface PromptRun {
      */
     emitted: Array<EmittedItem>;
     /**
+     * The run as a renderable sequence: assistant text, the tools it used, and emit payloads in position. Empty until the run completes. `output` remains the flat text for callers that only need the answer.
+     * @type {Array<TranscriptItem>}
+     * @memberof PromptRun
+     */
+    transcript: Array<TranscriptItem>;
+    /**
      * Error message if the run failed. Null on success.
      * @type {string}
      * @memberof PromptRun
@@ -114,6 +127,7 @@ export function instanceOfPromptRun(value: object): value is PromptRun {
     if (!('status' in value) || value['status'] === undefined) return false;
     if (!('createdAt' in value) || value['createdAt'] === undefined) return false;
     if (!('emitted' in value) || value['emitted'] === undefined) return false;
+    if (!('transcript' in value) || value['transcript'] === undefined) return false;
     return true;
 }
 
@@ -133,6 +147,7 @@ export function PromptRunFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'finishedAt': json['finishedAt'] == null ? undefined : (new Date(json['finishedAt'])),
         'output': json['output'] == null ? undefined : json['output'],
         'emitted': ((json['emitted'] as Array<any>).map(EmittedItemFromJSON)),
+        'transcript': ((json['transcript'] as Array<any>).map(TranscriptItemFromJSON)),
         'error': json['error'] == null ? undefined : json['error'],
         'tokenUsage': json['tokenUsage'] == null ? undefined : TokenUsageFromJSON(json['tokenUsage']),
         'cost': json['cost'] == null ? undefined : RunCostFromJSON(json['cost']),
@@ -156,6 +171,7 @@ export function PromptRunToJSONTyped(value?: PromptRun | null, ignoreDiscriminat
         'finishedAt': value['finishedAt'] == null ? value['finishedAt'] : value['finishedAt'].toISOString(),
         'output': value['output'],
         'emitted': ((value['emitted'] as Array<any>).map(EmittedItemToJSON)),
+        'transcript': ((value['transcript'] as Array<any>).map(TranscriptItemToJSON)),
         'error': value['error'],
         'tokenUsage': TokenUsageToJSON(value['tokenUsage']),
         'cost': RunCostToJSON(value['cost']),
