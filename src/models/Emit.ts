@@ -26,12 +26,6 @@ export interface Emit {
      */
     paramsSchema: string;
     /**
-     * Whether to also splice the payload into the output text as an emit:<name> markdown fence at the call position.
-     * @type {boolean}
-     * @memberof Emit
-     */
-    inline: boolean;
-    /**
      * The tool’s name.
      * @type {string}
      * @memberof Emit
@@ -72,7 +66,6 @@ export type EmitTypeEnum = typeof EmitTypeEnum[keyof typeof EmitTypeEnum];
  */
 export function instanceOfEmit(value: object): value is Emit {
     if (!('paramsSchema' in value) || value['paramsSchema'] === undefined) return false;
-    if (!('inline' in value) || value['inline'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
     if (value['type'] !== 'emit') return false;
@@ -91,7 +84,6 @@ export function EmitFromJSONTyped(json: any, ignoreDiscriminator: boolean): Emit
     return {
         
         'paramsSchema': json['paramsSchema'],
-        'inline': json['inline'],
         'name': json['name'],
         'description': json['description'] == null ? undefined : json['description'],
         'failFast': json['failFast'] == null ? undefined : json['failFast'],
@@ -111,7 +103,6 @@ export function EmitToJSONTyped(value?: Emit | null, ignoreDiscriminator: boolea
     return {
         
         'paramsSchema': value['paramsSchema'],
-        'inline': value['inline'],
         'name': value['name'],
         'description': value['description'],
         'failFast': value['failFast'],
