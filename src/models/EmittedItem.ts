@@ -27,10 +27,10 @@ export interface EmittedItem {
     tool: string;
     /**
      * The payload — the tool-call arguments, verbatim.
-     * @type {object}
+     * @type {{ [key: string]: any; }}
      * @memberof EmittedItem
      */
-    payload: object;
+    payload: { [key: string]: any; };
 }
 
 /**

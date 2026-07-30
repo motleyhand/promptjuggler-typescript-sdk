@@ -27,10 +27,10 @@ export interface TranscriptData {
     tool: string;
     /**
      * The payload — the tool-call arguments, verbatim.
-     * @type {object}
+     * @type {{ [key: string]: any; }}
      * @memberof TranscriptData
      */
-    payload: object;
+    payload: { [key: string]: any; };
     /**
      * 
      * @type {TranscriptDataTypeEnum}
