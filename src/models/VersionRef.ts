@@ -34,12 +34,6 @@ export interface VersionRef {
      */
     definitionId: string;
     /**
-     * Deprecated alias of definitionId.
-     * @type {string}
-     * @memberof VersionRef
-     */
-    parentId?: string | null;
-    /**
      * 
      * @type {VersionRefIdOrTag}
      * @memberof VersionRef
@@ -67,7 +61,6 @@ export function VersionRefFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     return {
         
         'definitionId': json['definitionId'],
-        'parentId': json['parentId'] == null ? undefined : json['parentId'],
         'idOrTag': VersionRefIdOrTagFromJSON(json['idOrTag']),
     };
 }
@@ -84,7 +77,6 @@ export function VersionRefToJSONTyped(value?: VersionRef | null, ignoreDiscrimin
     return {
         
         'definitionId': value['definitionId'],
-        'parentId': value['parentId'],
         'idOrTag': VersionRefIdOrTagToJSON(value['idOrTag']),
     };
 }
