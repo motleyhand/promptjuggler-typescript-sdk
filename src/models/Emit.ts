@@ -42,7 +42,7 @@ export interface Emit {
      * @type {boolean}
      * @memberof Emit
      */
-    failFast?: boolean;
+    failFast: boolean;
     /**
      * 
      * @type {EmitTypeEnum}
@@ -67,6 +67,7 @@ export type EmitTypeEnum = typeof EmitTypeEnum[keyof typeof EmitTypeEnum];
 export function instanceOfEmit(value: object): value is Emit {
     if (!('paramsSchema' in value) || value['paramsSchema'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('failFast' in value) || value['failFast'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
     if (value['type'] !== 'emit') return false;
     
@@ -86,7 +87,7 @@ export function EmitFromJSONTyped(json: any, ignoreDiscriminator: boolean): Emit
         'paramsSchema': json['paramsSchema'],
         'name': json['name'],
         'description': json['description'] == null ? undefined : json['description'],
-        'failFast': json['failFast'] == null ? undefined : json['failFast'],
+        'failFast': json['failFast'],
         'type': json['type'],
     };
 }

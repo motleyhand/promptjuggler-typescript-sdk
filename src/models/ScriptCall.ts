@@ -48,7 +48,7 @@ export interface ScriptCall {
      * @type {boolean}
      * @memberof ScriptCall
      */
-    failFast?: boolean;
+    failFast: boolean;
     /**
      * 
      * @type {ScriptCallTypeEnum}
@@ -83,6 +83,7 @@ export function instanceOfScriptCall(value: object): value is ScriptCall {
     if (!('language' in value) || value['language'] === undefined) return false;
     if (!('code' in value) || value['code'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('failFast' in value) || value['failFast'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
     if (value['type'] !== 'script') return false;
     
@@ -103,7 +104,7 @@ export function ScriptCallFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'code': json['code'],
         'name': json['name'],
         'description': json['description'] == null ? undefined : json['description'],
-        'failFast': json['failFast'] == null ? undefined : json['failFast'],
+        'failFast': json['failFast'],
         'type': json['type'],
     };
 }

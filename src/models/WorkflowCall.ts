@@ -50,7 +50,7 @@ export interface WorkflowCall {
      * @type {boolean}
      * @memberof WorkflowCall
      */
-    failFast?: boolean;
+    failFast: boolean;
     /**
      * 
      * @type {WorkflowCallTypeEnum}
@@ -75,6 +75,7 @@ export type WorkflowCallTypeEnum = typeof WorkflowCallTypeEnum[keyof typeof Work
 export function instanceOfWorkflowCall(value: object): value is WorkflowCall {
     if (!('versionRef' in value) || value['versionRef'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('failFast' in value) || value['failFast'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
     if (value['type'] !== 'workflow') return false;
     
@@ -94,7 +95,7 @@ export function WorkflowCallFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'versionRef': VersionRefFromJSON(json['versionRef']),
         'name': json['name'],
         'description': json['description'] == null ? undefined : json['description'],
-        'failFast': json['failFast'] == null ? undefined : json['failFast'],
+        'failFast': json['failFast'],
         'type': json['type'],
     };
 }

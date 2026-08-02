@@ -50,7 +50,7 @@ export interface PromptCall {
      * @type {boolean}
      * @memberof PromptCall
      */
-    failFast?: boolean;
+    failFast: boolean;
     /**
      * 
      * @type {PromptCallTypeEnum}
@@ -75,6 +75,7 @@ export type PromptCallTypeEnum = typeof PromptCallTypeEnum[keyof typeof PromptCa
 export function instanceOfPromptCall(value: object): value is PromptCall {
     if (!('versionRef' in value) || value['versionRef'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('failFast' in value) || value['failFast'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
     if (value['type'] !== 'prompt') return false;
     
@@ -94,7 +95,7 @@ export function PromptCallFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'versionRef': VersionRefFromJSON(json['versionRef']),
         'name': json['name'],
         'description': json['description'] == null ? undefined : json['description'],
-        'failFast': json['failFast'] == null ? undefined : json['failFast'],
+        'failFast': json['failFast'],
         'type': json['type'],
     };
 }

@@ -42,7 +42,7 @@ export interface KnowledgeSearch {
      * @type {boolean}
      * @memberof KnowledgeSearch
      */
-    failFast?: boolean;
+    failFast: boolean;
     /**
      * 
      * @type {KnowledgeSearchTypeEnum}
@@ -67,6 +67,7 @@ export type KnowledgeSearchTypeEnum = typeof KnowledgeSearchTypeEnum[keyof typeo
 export function instanceOfKnowledgeSearch(value: object): value is KnowledgeSearch {
     if (!('knowledgeBaseId' in value) || value['knowledgeBaseId'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('failFast' in value) || value['failFast'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
     if (value['type'] !== 'knowledge_search') return false;
     
@@ -86,7 +87,7 @@ export function KnowledgeSearchFromJSONTyped(json: any, ignoreDiscriminator: boo
         'knowledgeBaseId': json['knowledgeBaseId'],
         'name': json['name'],
         'description': json['description'] == null ? undefined : json['description'],
-        'failFast': json['failFast'] == null ? undefined : json['failFast'],
+        'failFast': json['failFast'],
         'type': json['type'],
     };
 }

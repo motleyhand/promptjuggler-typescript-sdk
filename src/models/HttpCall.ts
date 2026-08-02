@@ -68,7 +68,7 @@ export interface HttpCall {
      * @type {boolean}
      * @memberof HttpCall
      */
-    failFast?: boolean;
+    failFast: boolean;
     /**
      * 
      * @type {HttpCallTypeEnum}
@@ -107,6 +107,7 @@ export function instanceOfHttpCall(value: object): value is HttpCall {
     if (!('url' in value) || value['url'] === undefined) return false;
     if (!('method' in value) || value['method'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('failFast' in value) || value['failFast'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
     if (value['type'] !== 'http') return false;
     
@@ -129,7 +130,7 @@ export function HttpCallFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'headers': json['headers'] == null ? undefined : ((json['headers'] as Array<any>).map(HttpHeaderFromJSON)),
         'name': json['name'],
         'description': json['description'] == null ? undefined : json['description'],
-        'failFast': json['failFast'] == null ? undefined : json['failFast'],
+        'failFast': json['failFast'],
         'type': json['type'],
     };
 }
