@@ -28,6 +28,12 @@ import {
  */
 export interface VersionRef {
     /**
+     * Definition – prompt or workflow – ID.
+     * @type {string}
+     * @memberof VersionRef
+     */
+    definitionId: string;
+    /**
      * Deprecated alias of definitionId.
      * @type {string}
      * @memberof VersionRef
@@ -39,20 +45,14 @@ export interface VersionRef {
      * @memberof VersionRef
      */
     idOrTag: VersionRefIdOrTag;
-    /**
-     * Definition – prompt or workflow – ID.
-     * @type {string}
-     * @memberof VersionRef
-     */
-    definitionId: string;
 }
 
 /**
  * Check if a given object implements the VersionRef interface.
  */
 export function instanceOfVersionRef(value: object): value is VersionRef {
-    if (!('idOrTag' in value) || value['idOrTag'] === undefined) return false;
     if (!('definitionId' in value) || value['definitionId'] === undefined) return false;
+    if (!('idOrTag' in value) || value['idOrTag'] === undefined) return false;
     return true;
 }
 
@@ -66,9 +66,9 @@ export function VersionRefFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
+        'definitionId': json['definitionId'],
         'parentId': json['parentId'] == null ? undefined : json['parentId'],
         'idOrTag': VersionRefIdOrTagFromJSON(json['idOrTag']),
-        'definitionId': json['definitionId'],
     };
 }
 
@@ -83,9 +83,9 @@ export function VersionRefToJSONTyped(value?: VersionRef | null, ignoreDiscrimin
 
     return {
         
+        'definitionId': value['definitionId'],
         'parentId': value['parentId'],
         'idOrTag': VersionRefIdOrTagToJSON(value['idOrTag']),
-        'definitionId': value['definitionId'],
     };
 }
 
