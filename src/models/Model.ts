@@ -35,6 +35,7 @@ export const Model = {
     Gpt4o: 'gpt-4o',
     Gpt4oMini: 'gpt-4o-mini',
     Gemini31ProPreview: 'gemini-3.1-pro-preview',
+    Gemini37Flash: 'gemini-3.7-flash',
     Gemini36Flash: 'gemini-3.6-flash',
     Gemini35Flash: 'gemini-3.5-flash',
     Gemini3FlashPreview: 'gemini-3-flash-preview',
