@@ -84,7 +84,7 @@ export interface WorkflowRun {
      */
     tokenUsage?: TokenUsage | null;
     /**
-     * Aggregated cost breakdown across the workflow run. Null while pending.
+     * Aggregated cost breakdown across the workflow run. Null while pending, or when no published rate covers one of its runs.
      * @type {RunCost}
      * @memberof WorkflowRun
      */

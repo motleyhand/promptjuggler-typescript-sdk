@@ -110,7 +110,7 @@ export interface PromptRun {
      */
     tokenUsage?: TokenUsage | null;
     /**
-     * Cost breakdown for the run. Null while pending.
+     * Cost breakdown for the run. Null while pending, or when no published rate covers the run.
      * @type {RunCost}
      * @memberof PromptRun
      */
