@@ -80,7 +80,7 @@ export interface PromptRun {
      */
     finishedAt?: Date | null;
     /**
-     * LLM output text. Null while pending or when the run failed.
+     * LLM output text produced so far; read `status` for completeness. Null when the run failed, or when the model returned no text — e.g. a turn that was only tool calls or only reasoning.
      * @type {string}
      * @memberof PromptRun
      */
@@ -98,13 +98,13 @@ export interface PromptRun {
      */
     transcript: Array<TranscriptItem>;
     /**
-     * Error message if the run failed. Null on success.
+     * Error message from the latest failed attempt, kept even once a retry recovers — so a pending or completed run can carry one. Read `status` for the outcome.
      * @type {string}
      * @memberof PromptRun
      */
     error?: string | null;
     /**
-     * Token usage for the successful run. Null while pending or when the run failed.
+     * Token usage accumulated over successful turns — a run that failed later still reports the earlier ones. Null until the first turn succeeds.
      * @type {TokenUsage}
      * @memberof PromptRun
      */

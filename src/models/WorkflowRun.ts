@@ -66,13 +66,13 @@ export interface WorkflowRun {
      */
     finishedAt?: Date | null;
     /**
-     * Map of output node names to their values. Empty object while pending.
+     * Map of output node names to their values. Only completed output nodes appear, so a pending or failed run can return a partial map — read `status` for completeness.
      * @type {{ [key: string]: string | null; }}
      * @memberof WorkflowRun
      */
     outputs: { [key: string]: string | null; };
     /**
-     * List of error messages from failed nodes. Empty array on success.
+     * Node run messages: failures, warnings from nodes that completed anyway (e.g. a non-fail-fast assertion), and the latest error of a node still retrying. Non-empty does not mean the run failed — read `status`.
      * @type {Array<string>}
      * @memberof WorkflowRun
      */
