@@ -18,6 +18,7 @@
  * @export
  */
 export const Model = {
+    Gpt6Astra: 'gpt-6-astra',
     Gpt56Sol: 'gpt-5.6-sol',
     Gpt56Terra: 'gpt-5.6-terra',
     Gpt56Luna: 'gpt-5.6-luna',
@@ -35,6 +36,7 @@ export const Model = {
     Gpt4o: 'gpt-4o',
     Gpt4oMini: 'gpt-4o-mini',
     Gemini31ProPreview: 'gemini-3.1-pro-preview',
+    Gemini38Flash: 'gemini-3.8-flash',
     Gemini37Flash: 'gemini-3.7-flash',
     Gemini36Flash: 'gemini-3.6-flash',
     Gemini35Flash: 'gemini-3.5-flash',
@@ -44,6 +46,7 @@ export const Model = {
     Gemini25Pro: 'gemini-2.5-pro',
     Gemini25Flash: 'gemini-2.5-flash',
     Gemini25FlashLite: 'gemini-2.5-flash-lite',
+    ClaudeFable51: 'claude-fable-5-1',
     ClaudeFable5: 'claude-fable-5',
     ClaudeOpus5: 'claude-opus-5',
     ClaudeOpus48: 'claude-opus-4-8',
