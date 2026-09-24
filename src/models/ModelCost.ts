@@ -36,6 +36,12 @@ export interface ModelCost {
      * @type {number}
      * @memberof ModelCost
      */
+    cacheWrite: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelCost
+     */
     output: number;
     /**
      * 
@@ -57,6 +63,7 @@ export interface ModelCost {
 export function instanceOfModelCost(value: object): value is ModelCost {
     if (!('input' in value) || value['input'] === undefined) return false;
     if (!('cachedInput' in value) || value['cachedInput'] === undefined) return false;
+    if (!('cacheWrite' in value) || value['cacheWrite'] === undefined) return false;
     if (!('output' in value) || value['output'] === undefined) return false;
     if (!('webSearch' in value) || value['webSearch'] === undefined) return false;
     if (!('total' in value) || value['total'] === undefined) return false;
@@ -75,6 +82,7 @@ export function ModelCostFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         
         'input': json['input'],
         'cachedInput': json['cachedInput'],
+        'cacheWrite': json['cacheWrite'],
         'output': json['output'],
         'webSearch': json['webSearch'],
         'total': json['total'],
@@ -94,6 +102,7 @@ export function ModelCostToJSONTyped(value?: ModelCost | null, ignoreDiscriminat
         
         'input': value['input'],
         'cachedInput': value['cachedInput'],
+        'cacheWrite': value['cacheWrite'],
         'output': value['output'],
         'webSearch': value['webSearch'],
         'total': value['total'],

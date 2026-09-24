@@ -63,6 +63,12 @@ export interface TokenUsage {
      * @memberof TokenUsage
      */
     serviceTier?: ServiceTier;
+    /**
+     * 
+     * @type {number}
+     * @memberof TokenUsage
+     */
+    inputCacheWrite?: number;
 }
 
 
@@ -95,6 +101,7 @@ export function TokenUsageFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'reasoning': json['reasoning'],
         'total': json['total'],
         'serviceTier': json['serviceTier'] == null ? undefined : ServiceTierFromJSON(json['serviceTier']),
+        'inputCacheWrite': json['inputCacheWrite'] == null ? undefined : json['inputCacheWrite'],
     };
 }
 
@@ -115,6 +122,7 @@ export function TokenUsageToJSONTyped(value?: TokenUsage | null, ignoreDiscrimin
         'reasoning': value['reasoning'],
         'total': value['total'],
         'serviceTier': ServiceTierToJSON(value['serviceTier']),
+        'inputCacheWrite': value['inputCacheWrite'],
     };
 }
 
