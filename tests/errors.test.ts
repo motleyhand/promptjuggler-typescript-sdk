@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { ApiError, ConnectionError, PromptJugglerError } from '../lib';
+import { ApiError, ConnectionError, DecodeError, PromptJugglerError } from '../lib';
 import { jsonResponse, mock } from './helpers';
 
 describe('error translation', () => {
@@ -29,6 +29,27 @@ describe('error translation', () => {
     expect(error).toBeInstanceOf(ApiError);
     expect((error as ApiError).statusCode).toBe(502);
     expect((error as ApiError).message).not.toBe('');
+  });
+
+  test('wraps a success response whose body does not decode in a DecodeError', async () => {
+    const { pj } = mock(() =>
+      jsonResponse({
+        id: '550e8400-e29b-41d4-a716-446655440000',
+        promptId: '550e8400-e29b-41d4-a716-446655440001',
+        memory: 'stateless',
+        provider: 'openai',
+        model: 'gpt-4o',
+        modelParams: {},
+        responseFormat: { type: 'text' },
+        messages: [],
+        tools: 'not-a-list',
+      }),
+    );
+
+    const error = await pj.getPrompt('greeting', 'production').catch((e: unknown) => e);
+
+    expect(error).toBeInstanceOf(DecodeError);
+    expect(error).toBeInstanceOf(PromptJugglerError);
   });
 
   test('wraps a network failure (no response) in a ConnectionError', async () => {

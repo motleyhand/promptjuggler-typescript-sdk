@@ -31,8 +31,9 @@ if (run.status === RunStatus.Completed) {
 }
 ```
 
-Errors surface as `ApiError` (with a `statusCode`). Verify incoming webhooks with
-`verifyWebhookSignature()`.
+Errors surface as `ApiError` (with a `statusCode`), `ConnectionError` (no response), or
+`DecodeError` (an undecodable success body), all subclasses of `PromptJugglerError`. Verify
+incoming webhooks with `verifyWebhookSignature()`.
 
 ## Documentation
 

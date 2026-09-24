@@ -1,4 +1,5 @@
 import {
+  type ApiResponse,
   Configuration,
   FetchError,
   KnowledgeBasesApi,
@@ -22,7 +23,7 @@ import type {
   StreamTokenResponse,
   WorkflowRun,
 } from '../src';
-import { ApiError, ConnectionError } from './errors';
+import { ApiError, ConnectionError, DecodeError } from './errors';
 
 export interface PromptJugglerOptions {
   /** Override the API base URL. Defaults to `https://promptjuggler.com`. */
@@ -77,7 +78,7 @@ export class PromptJuggler {
 
   /** Fetch a prompt revision by slug and version (a numeric revision or a tag like `production`). */
   getPrompt(slug: string, version: number | string): Promise<PromptRevision> {
-    return this.send(() => this.prompts.getPromptRevision({ slug, version }));
+    return this.send(() => this.prompts.getPromptRevisionRaw({ slug, version }));
   }
 
   /** Trigger a prompt run (async — resolves with the run ID; poll {@link getPromptRun} for the result). */
@@ -96,12 +97,12 @@ export class PromptJuggler {
       metadata: options.metadata,
       channel: options.channel,
     };
-    return this.send(() => this.promptRuns.createPromptRun({ slug, version, createPromptRun }));
+    return this.send(() => this.promptRuns.createPromptRunRaw({ slug, version, createPromptRun }));
   }
 
   /** Fetch a prompt run by ID. */
   getPromptRun(id: string): Promise<PromptRun> {
-    return this.send(() => this.promptRuns.getPromptRun({ id }));
+    return this.send(() => this.promptRuns.getPromptRunRaw({ id }));
   }
 
   /** Trigger a workflow run (async — resolves with the run ID; poll {@link getWorkflowRun} for the result). */
@@ -119,12 +120,12 @@ export class PromptJuggler {
       envVars: options.envVars,
       metadata: options.metadata,
     };
-    return this.send(() => this.workflowRuns.createWorkflowRun({ slug, version, createWorkflowRun }));
+    return this.send(() => this.workflowRuns.createWorkflowRunRaw({ slug, version, createWorkflowRun }));
   }
 
   /** Fetch a workflow run by ID. */
   getWorkflowRun(id: string): Promise<WorkflowRun> {
-    return this.send(() => this.workflowRuns.getWorkflowRun({ id }));
+    return this.send(() => this.workflowRuns.getWorkflowRunRaw({ id }));
   }
 
   /**
@@ -135,22 +136,22 @@ export class PromptJuggler {
    * Connect before triggering a run: tokens emitted while nobody is subscribed are not replayed.
    */
   createStreamToken(thread: string): Promise<StreamTokenResponse> {
-    return this.send(() => this.streaming.createStreamToken({ thread }));
+    return this.send(() => this.streaming.createStreamTokenRaw({ thread }));
   }
 
   /** Fetch a knowledge base by slug. */
   getKnowledgeBase(slug: string): Promise<KnowledgeBaseResponse> {
-    return this.send(() => this.knowledgeBases.publicGetKnowledgeBase({ slug }));
+    return this.send(() => this.knowledgeBases.publicGetKnowledgeBaseRaw({ slug }));
   }
 
   /** Fetch a knowledge document by ID. */
   getKnowledgeDocument(id: string): Promise<KnowledgeDocumentResponse> {
-    return this.send(() => this.knowledgeBases.publicGetDocument({ id }));
+    return this.send(() => this.knowledgeBases.publicGetDocumentRaw({ id }));
   }
 
   /** Delete a knowledge document by ID. */
   deleteKnowledgeDocument(id: string): Promise<void> {
-    return this.send(() => this.knowledgeBases.publicDeleteDocument({ id }));
+    return this.send(() => this.knowledgeBases.publicDeleteDocumentRaw({ id }));
   }
 
   /** Upload one or more documents to a knowledge base (processed asynchronously). */
@@ -164,12 +165,13 @@ export class PromptJuggler {
       form.append(`files[${index}]`, file, file.name);
     });
 
-    return this.send(() => this.knowledgeBases.publicUploadDocuments({ slug }, { body: form }));
+    return this.send(() => this.knowledgeBases.publicUploadDocumentsRaw({ slug }, { body: form }));
   }
 
-  private async send<T>(call: () => Promise<T>): Promise<T> {
+  private async send<T>(call: () => Promise<ApiResponse<T>>): Promise<T> {
+    let response: ApiResponse<T>;
     try {
-      return await call();
+      response = await call();
     } catch (error) {
       // An error status: the server responded, but with a non-2xx code.
       if (error instanceof ResponseError) {
@@ -185,6 +187,14 @@ export class PromptJuggler {
         throw new ConnectionError(message, { cause });
       }
       throw error;
+    }
+
+    // A 2xx arrived; value() only reads and maps the body, so anything it throws is a decode failure.
+    try {
+      return await response.value();
+    } catch (cause) {
+      const message = cause instanceof Error ? cause.message : 'The response body could not be decoded.';
+      throw new DecodeError(message, { cause });
     }
   }
 }

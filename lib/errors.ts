@@ -20,3 +20,14 @@ export class ConnectionError extends PromptJugglerError {
     this.name = 'ConnectionError';
   }
 }
+
+/**
+ * Thrown when the API replied with a success status but the body didn't decode into the expected
+ * model. The request succeeded, so retrying a run starts a second one.
+ */
+export class DecodeError extends PromptJugglerError {
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options);
+    this.name = 'DecodeError';
+  }
+}
