@@ -32,7 +32,7 @@ export interface Mcp {
      */
     url: string;
     /**
-     * Authorization token for the MCP server.
+     * Environment variable holding the MCP server’s authorization token, referenced as ${NAME}.
      * @type {string}
      * @memberof Mcp
      */
