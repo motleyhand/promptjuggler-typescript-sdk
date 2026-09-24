@@ -46,7 +46,7 @@ export interface HttpCall {
      */
     method: HttpCallMethodEnum;
     /**
-     * The headers to send with the HTTP request. Can contain ${ENV_VAR} and {{inputName}} placeholders.
+     * The headers to send with the HTTP request. Can contain ${ENV_VAR} and {{inputName}} placeholders; a credential header (Authorization, *-Key, *-Token, …) must take its secret from one.
      * @type {Array<HttpHeader>}
      * @memberof HttpCall
      */
