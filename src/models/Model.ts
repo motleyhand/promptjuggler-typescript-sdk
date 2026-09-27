@@ -19,6 +19,8 @@
  */
 export const Model = {
     Gpt6Astra: 'gpt-6-astra',
+    Gpt6Sol: 'gpt-6-sol',
+    Gpt6Luna: 'gpt-6-luna',
     Gpt56Sol: 'gpt-5.6-sol',
     Gpt56Terra: 'gpt-5.6-terra',
     Gpt56Luna: 'gpt-5.6-luna',
@@ -48,6 +50,7 @@ export const Model = {
     Gemini25FlashLite: 'gemini-2.5-flash-lite',
     ClaudeFable51: 'claude-fable-5-1',
     ClaudeFable5: 'claude-fable-5',
+    ClaudeOpus55: 'claude-opus-5-5',
     ClaudeOpus5: 'claude-opus-5',
     ClaudeOpus48: 'claude-opus-4-8',
     ClaudeOpus47: 'claude-opus-4-7',
