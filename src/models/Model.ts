@@ -18,6 +18,7 @@
  * @export
  */
 export const Model = {
+    Gpt61Sol: 'gpt-6.1-sol',
     Gpt6Astra: 'gpt-6-astra',
     Gpt6Sol: 'gpt-6-sol',
     Gpt6Luna: 'gpt-6-luna',
@@ -56,9 +57,9 @@ export const Model = {
     ClaudeOpus47: 'claude-opus-4-7',
     ClaudeOpus46: 'claude-opus-4-6',
     ClaudeOpus45: 'claude-opus-4-5',
+    ClaudeSonnet55: 'claude-sonnet-5-5',
     ClaudeSonnet5: 'claude-sonnet-5',
     ClaudeSonnet46: 'claude-sonnet-4-6',
-    ClaudeSonnet45: 'claude-sonnet-4-5',
     ClaudeHaiku45: 'claude-haiku-4-5'
 } as const;
 export type Model = typeof Model[keyof typeof Model];
