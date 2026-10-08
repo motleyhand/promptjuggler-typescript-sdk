@@ -60,6 +60,7 @@ export const Model = {
     ClaudeSonnet55: 'claude-sonnet-5-5',
     ClaudeSonnet5: 'claude-sonnet-5',
     ClaudeSonnet46: 'claude-sonnet-4-6',
+    ClaudeHaiku55: 'claude-haiku-5-5',
     ClaudeHaiku45: 'claude-haiku-4-5'
 } as const;
 export type Model = typeof Model[keyof typeof Model];
