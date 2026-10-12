@@ -29,6 +29,7 @@ describe('getPrompt', () => {
     const { pj } = mock(() =>
       jsonResponse({
         ...REVISION,
+        provider: 'mistral',
         model: 'gpt-9',
         modelParams: { reasoningEffort: 'ultra' },
         responseFormat: { type: 'text', addedLater: 1 },
@@ -48,6 +49,7 @@ describe('getPrompt', () => {
 
     const prompt = await pj.getPrompt('greeting', 'production');
 
+    expect(prompt.provider).toBe('mistral');
     expect(prompt.model).toBe('gpt-9');
     expect(prompt.modelParams.reasoningEffort).toBe('ultra');
     expect(prompt.tools[0]).toMatchObject({ type: 'http', method: 'QUERY' });

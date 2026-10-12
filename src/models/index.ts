@@ -25,7 +25,6 @@ export * from './KnowledgeDocumentSummary';
 export * from './KnowledgeSearch';
 export * from './Mcp';
 export * from './Memory';
-export * from './Model';
 export * from './ModelCost';
 export * from './ModelParams';
 export * from './PromptCall';

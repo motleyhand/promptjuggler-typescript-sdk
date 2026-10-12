@@ -27,13 +27,6 @@ import {
     MemoryToJSON,
     MemoryToJSONTyped,
 } from './Memory';
-import type { Model } from './Model';
-import {
-    ModelFromJSON,
-    ModelFromJSONTyped,
-    ModelToJSON,
-    ModelToJSONTyped,
-} from './Model';
 import type { ModelParams } from './ModelParams';
 import {
     ModelParamsFromJSON,
@@ -95,10 +88,10 @@ export interface PromptRevision {
     provider: Provider;
     /**
      * AI model.
-     * @type {Model}
+     * @type {string}
      * @memberof PromptRevision
      */
-    model: Model;
+    model: string;
     /**
      * Model parameters.
      * @type {ModelParams}
@@ -163,7 +156,7 @@ export function PromptRevisionFromJSONTyped(json: any, ignoreDiscriminator: bool
         'promptId': json['promptId'],
         'memory': MemoryFromJSON(json['memory']),
         'provider': ProviderFromJSON(json['provider']),
-        'model': ModelFromJSON(json['model']),
+        'model': json['model'],
         'modelParams': ModelParamsFromJSON(json['modelParams']),
         'responseFormat': ResponseFormatFromJSON(json['responseFormat']),
         'systemInstruction': json['systemInstruction'] == null ? undefined : json['systemInstruction'],
@@ -187,7 +180,7 @@ export function PromptRevisionToJSONTyped(value?: PromptRevision | null, ignoreD
         'promptId': value['promptId'],
         'memory': MemoryToJSON(value['memory']),
         'provider': ProviderToJSON(value['provider']),
-        'model': ModelToJSON(value['model']),
+        'model': value['model'],
         'modelParams': ModelParamsToJSON(value['modelParams']),
         'responseFormat': ResponseFormatToJSON(value['responseFormat']),
         'systemInstruction': value['systemInstruction'],
