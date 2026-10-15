@@ -133,7 +133,8 @@ export class PromptJuggler {
    * server and hand the result to the browser — the API key must never reach it. The response
    * carries the fully-resolved SSE `url` alongside the token, so clients need no host config.
    *
-   * Connect before triggering a run: tokens emitted while nobody is subscribed are not replayed.
+   * A fresh connection starts at the live tip, so connect before triggering a run, or set the
+   * browser SDK's `replay` option to join a run already under way.
    */
   createStreamToken(thread: string): Promise<StreamTokenResponse> {
     return this.send(() => this.streaming.createStreamTokenRaw({ thread }));

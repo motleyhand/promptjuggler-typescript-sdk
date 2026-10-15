@@ -69,7 +69,7 @@ export class StreamingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a short-lived, thread-scoped token your frontend can use to subscribe to live token output over SSE. Call this from your backend with your API key, then hand the token to the browser — the API key itself must never leave your server. The thread does not have to exist yet: mint a token, connect, then start the run. Connect before triggering a run, since tokens emitted while nobody is subscribed are not replayed.
+     * Returns a short-lived, thread-scoped token your frontend can use to subscribe to live token output over SSE. Call this from your backend with your API key, then hand the token to the browser — the API key itself must never leave your server. The thread does not have to exist yet: mint a token, connect, then start the run. A fresh connection starts at the live tip, so connect before triggering a run, or set the `replay` option of the browser SDK to join a run already under way.
      * Create a streaming credential for a thread
      */
     async createStreamTokenRaw(requestParameters: CreateStreamTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamTokenResponse>> {
@@ -80,7 +80,7 @@ export class StreamingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a short-lived, thread-scoped token your frontend can use to subscribe to live token output over SSE. Call this from your backend with your API key, then hand the token to the browser — the API key itself must never leave your server. The thread does not have to exist yet: mint a token, connect, then start the run. Connect before triggering a run, since tokens emitted while nobody is subscribed are not replayed.
+     * Returns a short-lived, thread-scoped token your frontend can use to subscribe to live token output over SSE. Call this from your backend with your API key, then hand the token to the browser — the API key itself must never leave your server. The thread does not have to exist yet: mint a token, connect, then start the run. A fresh connection starts at the live tip, so connect before triggering a run, or set the `replay` option of the browser SDK to join a run already under way.
      * Create a streaming credential for a thread
      */
     async createStreamToken(requestParameters: CreateStreamTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamTokenResponse> {
