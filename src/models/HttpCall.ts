@@ -34,7 +34,7 @@ export interface HttpCall {
      */
     paramsSchema: string;
     /**
-     * The URL to call. Can contain ${ENV_VAR} and {{inputName}} placeholders; a password or a credential query parameter (api_key, token, …) must take its secret from one.
+     * The URL to call. Can contain ${ENV_VAR} placeholders anywhere, and {{inputName}} placeholders in the path or query; a password or a credential query parameter (api_key, token, …) must take its secret from one.
      * @type {string}
      * @memberof HttpCall
      */

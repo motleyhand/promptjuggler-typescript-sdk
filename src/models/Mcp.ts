@@ -26,7 +26,7 @@ export interface Mcp {
      */
     name: string;
     /**
-     * The URL of the MCP server. A password or a credential query parameter (api_key, token, …) must take its secret from a placeholder.
+     * The URL of the MCP server. Can contain ${ENV_VAR} placeholders anywhere, and {{inputName}} placeholders in the path or query; a password or a credential query parameter (api_key, token, …) must take its secret from one.
      * @type {string}
      * @memberof Mcp
      */
