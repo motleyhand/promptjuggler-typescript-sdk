@@ -21,7 +21,8 @@ export const ServiceTier = {
     Auto: 'auto',
     Default: 'default',
     Flex: 'flex',
-    Priority: 'priority'
+    Fast: 'fast',
+    Ultrafast: 'ultrafast'
 } as const;
 export type ServiceTier = typeof ServiceTier[keyof typeof ServiceTier];
 
